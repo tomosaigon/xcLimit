@@ -61,20 +61,23 @@ mod erc_20 {
         name_: felt252,
         symbol_: felt252,
         decimals_: u8,
-        initial_supply: u256,
+        //initial_supply: u256,
         recipient: ContractAddress
     ) {
         self.name.write(name_);
         self.symbol.write(symbol_);
         self.decimals.write(decimals_);
         //assert(!recipient.is_zero(), 'ERC20: mint to the 0 address');
-        self.total_supply.write(initial_supply);
-        self.balances.write(recipient, initial_supply);
+        // self.total_supply.write(initial_supply);
+        self.total_supply.write(1);
+        //self.balances.write(recipient, initial_supply);
+        self.balances.write(recipient, 1);
         self
             .emit(
                 Event::Transfer(
                     Transfer {
-                        from: contract_address_const::<0>(), to: recipient, value: initial_supply
+                        //from: contract_address_const::<0>(), to: recipient, value: initial_supply
+                        from: contract_address_const::<0>(), to: recipient, value: 1
                     }
                 )
             );
@@ -188,4 +191,3 @@ mod erc_20 {
 }
 
 
-//https://github.com/starkware-libs/cairo/blob/main/crates/cairo-lang-starknet/cairo_level_tests/contracts/erc20.cairo
